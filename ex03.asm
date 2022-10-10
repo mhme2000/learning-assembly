@@ -1,5 +1,6 @@
+# Bloco de código destinado a variável
 .data 
-msgInput : .asciiz "Entre com a quantidade de horas de estacionamento: "
+msgInput : .asciiz "Entre com o tempo de estacionamento (em minutos): "
 msgHoras : .asciiz "Tempo em horas: "
 msgMinutos : .asciiz " - Tempo em minutos: "
 msgValor : .asciiz " -> Valor a ser pago: "
@@ -8,6 +9,7 @@ msgPercentual2 : .asciiz "20% do valor do saldo médio "
 msgPercentual3 : .asciiz "30% do valor do saldo médio "
 msgPercentual4 : .asciiz "40% do valor do saldo médio "
 
+# Bloco de código destinado a instruções
 .text
 # carregando valores para comparação
 li $t6, 10
@@ -20,14 +22,16 @@ li $v0, 51
 la $a0, msgInput
 syscall
 
-# movendo para local definitivo saldo médio
+# movendo saldo médio para local definitivo 
 move $t2, $a0
 
 # calculando valor em horas
 div $t3, $t2, $t1
+
+# calculando resto em minutos
 rem $t4, $t2, $t1
 
-# exibindo mensagem horas na tela
+# exibindo mensagem de horas na tela
 li $v0, 4
 la $a0, msgHoras
 syscall
@@ -47,18 +51,19 @@ move $a0, $t4
 li $v0, 1
 syscall
 
-# exibindo mensagem crédito na tela
+# exibindo mensagem de valor total na tela
 li $v0, 4
 la $a0, msgValor
 syscall
 
+# arredonda o valor da hora para cima, caso a quantidade em minutos seja maior que zero
 beqz $t4, Condicional
 ArredondaHora:
 	add $t3, $t3, 1
 Condicional:
 	# testa se o valor armazenado em $t2 é menor ou igual a 120
 	bleu $t2, 120, ValorHora1
-	# testa se o valor armazenado em $f12 é menor ou igual a 240
+	# testa se o valor armazenado em $t2 é menor ou igual a 240
 	bleu $t2, 240, ValorHora2
 	b ValorHora3
 

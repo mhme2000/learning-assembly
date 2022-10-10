@@ -1,3 +1,4 @@
+# Bloco de código destinado a variável
 .data 
 msgInput : .asciiz "Entre com saldo médio: "
 msgSaldo : .asciiz "Saldo médio de: "
@@ -10,6 +11,7 @@ comparacao1 : .float 200.0
 comparacao2 : .float 400.0
 comparacao3 : .float 600.0
 
+# Bloco de código destinado a instruções
 .text
 # carregando valores para comparação
 lwc1 $f29, comparacao1
